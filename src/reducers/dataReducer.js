@@ -1,6 +1,6 @@
 const initialState = {
-    user: {},
-    users: []
+    coin: {},
+    coins: []
 }
 
 export default (state = initialState, action) => {
@@ -9,4 +9,4 @@ export default (state = initialState, action) => {
             return state
         }
     }
-}
+};

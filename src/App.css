@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  
 }
 
 .App-logo {
@@ -19,4 +20,57 @@
 
 .App-link {
   color: #09d3ac;
+}
+
+.signUp-form{
+  
+  width: 30%;
+  /* padding: 70px; */
+  vertical-align: middle;
+  color: transparent;
+  float: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.login-form{
+  
+  width: 30%;
+  /* padding: 70px; */
+  vertical-align: middle;
+  color: transparent;
+  float: center;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+}
+
+.sign-up-link{
+  color: hotpink;
+}
+
+.login-link{
+  color: hotpink;
+}
+
+.photo-container {
+  display: flex;
+  /* grid-template-rows: 100px 300px; */
+}
+
+.h5, h5 {
+  display: block;
+  font-size: 2em;
+  margin-top: 0.67em;
+  margin-bottom: 0.67em;
+  margin-left: 20;
+  margin-right: 0;
+  font-weight: bold;
 }
