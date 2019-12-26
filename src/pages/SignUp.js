@@ -4,8 +4,8 @@ import { addNewUser } from "../services/backend";
 import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import history from '../services/history';
-import bg from '../assets/crypto-currency-3130381_1920.jpg'
+import history from "../services/history";
+import bg from "../assets/Top-5-Benefits-of-Business-Loans-that-can-Help-to-Expand-Your-Business-DY605074.jpg";
 
 const styles = {
   backgroundContainer: {
@@ -50,10 +50,12 @@ class SignUp extends Component {
         if (data.jwt) {
           localStorage.setItem("jwt", data.jwt);
           localStorage.setItem("userId", data.user.id);
+          localStorage.setItem("user", JSON.stringify(data));
+
           // getUserInfo(data.user.id);
           this.setState({ loading: false });
           this.setState({ user: data });
-          this.props.dispatch({type: 'ADD_USER', data})
+          this.props.dispatch({ type: "ADD_USER", data });
           history.push("/profile");
           console.log(data);
         } else {
@@ -116,9 +118,17 @@ class SignUp extends Component {
       </div>
     );
 
-    return <div> <div style={styles.backgroundContainer}>
-    <div>{signUpForm}</div>;
-  </div></div>;
+    return (
+      <div style={styles.backgroundContainer}>
+       <div className="site-name">
+         <center><h1> Cryptelligent </h1></center> 
+          <h4> Stack Your Coins Intelligently</h4>
+        </div>
+        <br></br>
+        <br></br>
+        <div>{signUpForm}</div>;
+      </div>
+    );
   }
 }
 

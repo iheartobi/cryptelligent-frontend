@@ -74,3 +74,35 @@
   margin-right: 0;
   font-weight: bold;
 }
+
+.news-feed {
+  display: flex;
+  flex-direction:  row;
+  flex-wrap: wrap;
+  flex-grow: 3;
+  justify-content: space-evenly;
+}
+
+.coin-feed {
+  display: flex;
+  flex-direction:  row;
+  flex-wrap: wrap;
+  flex-grow: 3;
+  justify-content: space-evenly;
+}
+
+.coin-loading {
+  position: absolute; /* or absolute */
+  top: 25%;
+  left: 40%;
+}
+
+.site-name {
+  font-family: 'Fira Sans', sans-serif;
+  position: absolute; /* or absolute */
+  top: 20%;
+  left: 40%;
+  color: whitesmoke;
+  font-size: 50em;
+
+}

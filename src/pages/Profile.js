@@ -2,31 +2,32 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../components/NavBar";
-import { Container, Row, Image, Col, Table } from "react-bootstrap";
+import { Container, Row, Image, Col } from "react-bootstrap";
+import coin_img from '../assets/quarter.gif';
 
 class Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
+
+  state = {
+    loading: true
   }
 
-  render() {
-    const { name, coinbank, bg_url, img_url, teams } = this.props.user.user.user;
+  handleClick = (id, e) => {
+    e.preventDefault();
+    console.log(e.target, id);
+  };
 
+
+  render() {
+    const {loading} = this.state;
+    const data = JSON.parse(localStorage.getItem("user"));
     const styles = {
       jumbo: {
-        backgroundImage: `url(${bg_url})`,
+        backgroundImage: `url(${data.user.bg_url})`,
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
         backgroundSize: "cover"
       }
     };
-
-    const userTeams = (
-        <div>
-            {/* {this.props.user.map(u =>  )} */}
-        </div>
-    )
 
     const userPhoto = (
       <div className="photo-container">
@@ -36,7 +37,7 @@ class Profile extends Component {
               <Col xs={6} md={3}>
                 <center>
                   <Image
-                    src={img_url}
+                    src={data.user.img_url}
                     height="200px"
                     width="150px"
                     alt="profile-photo"
@@ -45,7 +46,7 @@ class Profile extends Component {
                   />
                 </center>
                 <center>
-                  <h5>Welcome Back, {name}</h5>
+                  <h5>Welcome Back, {data.user.name}</h5>
                 </center>
               </Col>
               <Col xs={6} md={5}>
@@ -55,10 +56,10 @@ class Profile extends Component {
                   {" "}
                   <strong>
                     {" "}
-                    <h3>Coin Bank:</h3>{" "}
+                    <h2>Earnings:</h2>{" "}
                   </strong>
                   <br></br>
-                  <h1>{coinbank}</h1>{" "}
+                  <h1>{data.user.coinbank}</h1>{" "}
                 </center>
               </Col>
             </Row>
@@ -70,52 +71,23 @@ class Profile extends Component {
       </div>
     );
 
-    const teamStats = (
-      <div>
-        <Container>
-          <Table  striped bordered hover variant="dark">
-            <thead>
-              <tr>
-                <th>Rank</th>
-                <th>Team</th>
-                <th>W-L-T</th>
-                <th>PF</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>1</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Jacob</td>
-                <td>Thornton</td>
-                <td>@fat</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>Larry the Bird</td>
-                <td>@twitter</td>
-              </tr>
-            </tbody>
-          </Table>
-        </Container>
-      </div>
-    );
+    if (!loading){
+      return (
+        <div className="coin-loading">
+          <img alt="coin" src={coin_img} />
+        </div>
+      );
+    } else {
     return (
       <div>
         <NavBar />
         <br></br>
         {userPhoto}
         <br></br>
-        <br></br>
-        {teamStats}
       </div>
     );
   }
+}
 }
 
 const mapStateToProps = state => {

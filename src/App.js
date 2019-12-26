@@ -8,10 +8,10 @@ import history from "../src/services/history";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Home from "./components/Home";
-import Draft from "./components/Draft";
+import Market from "./components/Market";
 import Coins from "./components/Coins";
 import Transactions from "./components/Transactions";
-import TeamCard from './components/TeamCard'
+// import TeamCard from './components/TeamCard'
 
 class App extends Component {
   render() {
@@ -23,7 +23,7 @@ class App extends Component {
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/home" render={() => <Home />} />
-          <Route exact path="/draft" render={() => <Draft />} />
+          <Route exact path="/market" render={() => <Market />} />
           <Route exact path="/coins" render={() => <Coins />} />
           <Route exact path="/transactions" render={() => <Transactions />} />
         </Router>

@@ -5,17 +5,21 @@ const NavBar = props => (
   <div>
     <Container>
       <Navbar bg="light" variant="light">
-        <Navbar.Brand href="#home">Coin Duel</Navbar.Brand>
+        <Navbar.Brand href="/home">Cryptelligent</Navbar.Brand>
         <Nav className="mr-auto">
           <Nav.Link href="/home">Home</Nav.Link>
-          <Nav.Link href="/draft">Draft</Nav.Link>
-          <Nav.Link href="/coins">Coins</Nav.Link>
-          <Nav.Link href="/transactions">Transactions</Nav.Link>
+          <Nav.Link href="/profile">Profile</Nav.Link>
+          <Nav.Link href="/market">Market</Nav.Link>
+        </Nav>
+        <Nav className="ml-auto">
+        <Nav.Link href="/login">Logout</Nav.Link>
+
+
 
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-warning">Search</Button>
+          <Button variant="outline-dark">Search</Button>
         </Form>
       </Navbar>
     </Container>
