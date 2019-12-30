@@ -2,24 +2,21 @@ import React from "react";
 import { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../components/NavBar";
-import { Container, Row, Image, Col } from "react-bootstrap";
-import coin_img from '../assets/quarter.gif';
+import { Container, Row, Image, Col, Table } from "react-bootstrap";
+import {Nav} from 'react-bootstrap'
+
 
 class Profile extends Component {
-
-  state = {
-    loading: true
-  }
-
+  
   handleClick = (id, e) => {
     e.preventDefault();
     console.log(e.target, id);
+    
   };
 
-
   render() {
-    const {loading} = this.state;
     const data = JSON.parse(localStorage.getItem("user"));
+  
     const styles = {
       jumbo: {
         backgroundImage: `url(${data.user.bg_url})`,
@@ -28,6 +25,17 @@ class Profile extends Component {
         backgroundSize: "cover"
       }
     };
+    const userTrans = data.user.coins.map((coin, index) => {
+      const { id, price, name, created_at } = coin;
+      return (
+        <tr onClick={(e) => this.handleClick(id, e)} key={id}>
+          <td>{id}</td>
+          <td>{created_at}</td>
+          <td>{name}</td>
+          <td>{price}</td>
+        </tr>
+      );
+    });
 
     const userPhoto = (
       <div className="photo-container">
@@ -63,35 +71,51 @@ class Profile extends Component {
                 </center>
               </Col>
             </Row>
-            <Row>
-              <></>
-            </Row>
           </div>
         </Container>
       </div>
     );
 
-    if (!loading){
+    const userTable = (
+      <Container>
+        <Table striped bordered hover>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Transaction Date</th>
+              <th>Coin Name</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>{
+            data.user.coins.length > 0 ? <>{userTrans}</> :
+           <center>
+             <h3>{"You Don't Have any Transactions Yet!"}</h3>
+             <Nav.Link href="/market">{"GET COINS NOW"}</Nav.Link>
+           </center>  
+             }
+            
+          </tbody>
+        </Table>
+      </Container>
+    );
+
+    
       return (
-        <div className="coin-loading">
-          <img alt="coin" src={coin_img} />
+        <div>
+          <NavBar />
+          <br></br>
+          {userPhoto}
+          <br></br>
+          {userTable}
         </div>
       );
-    } else {
-    return (
-      <div>
-        <NavBar />
-        <br></br>
-        {userPhoto}
-        <br></br>
-      </div>
-    );
+    
   }
-}
 }
 
 const mapStateToProps = state => {
-  return { user: state.user };
+  return { user: state.user, coins: state.data.coins };
 };
 
 export default connect(mapStateToProps)(Profile);

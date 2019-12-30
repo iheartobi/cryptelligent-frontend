@@ -13,7 +13,6 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    // width: `calc(100vw + 48px)`,
     margin: -24,
     height: 900
   }
@@ -52,7 +51,6 @@ class SignUp extends Component {
           localStorage.setItem("userId", data.user.id);
           localStorage.setItem("user", JSON.stringify(data));
 
-          // getUserInfo(data.user.id);
           this.setState({ loading: false });
           this.setState({ user: data });
           this.props.dispatch({ type: "ADD_USER", data });
@@ -66,7 +64,7 @@ class SignUp extends Component {
       })
       .catch(err => {
         this.setState({ loading: false });
-        console.log(err);
+        alert(err)
       });
   };
 
@@ -106,7 +104,7 @@ class SignUp extends Component {
               placeholder="Password"
             />
           </Form.Group>
-          <Button variant="warning" type="submit">
+          <Button variant="secondary" type="submit">
             Submit
           </Button>
         </Form>

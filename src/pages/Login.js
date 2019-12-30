@@ -13,7 +13,6 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    // width: `calc(100vw + 48px)`,
     margin: -24,
     height: 900
   }
@@ -47,13 +46,10 @@ class Login extends Component {
           localStorage.setItem("token", data.jwt);
           localStorage.setItem("userId", data.user.id);
           localStorage.setItem("user", JSON.stringify(data));
-
-          // getUserInfo(data.user.id);
           this.setState({ loading: false });
           this.setState({ user: data });
           this.props.dispatch({ type: "LOGIN_USER", data });
           history.push("/profile");
-          console.log(data);
         } else {
           alert("Incorrect Username or Password");
           history.push("/login");
@@ -62,7 +58,7 @@ class Login extends Component {
       })
       .catch(err => {
         this.setState({ loading: false });
-        console.log(err);
+        alert(err)
       });
   };
   render() {
@@ -85,7 +81,7 @@ class Login extends Component {
               placeholder="Password"
             />
           </Form.Group>
-          <Button variant="warning" type="submit">
+          <Button variant="secondary" type="submit">
             Submit
           </Button>
         </Form>
@@ -110,7 +106,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user, coin: state.data.coin, coins: state.data.coins };
+  return { user: state.user};
 };
 
 export default connect(mapStateToProps)(Login);

@@ -8,7 +8,6 @@ const styles = {
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    // width: `calc(100vw + 48px)`,
     margin: -24,
     height: 900
   }

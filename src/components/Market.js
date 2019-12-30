@@ -10,9 +10,7 @@ class Market extends Component {
     super();
     this.state = {
       coins: [],
-      loading: true,
-      currentPage: 1,
-      coinsPerPage: 25
+      loading: true
     };
   }
   componentDidMount() {
@@ -113,8 +111,8 @@ class Market extends Component {
                       <hr></hr>
                       Circulating Supply: {coin.circulating_supply}
                     </Card.Text>
-                    <Card.Link href="#">Card Link</Card.Link>
-                    <Card.Link href="#">Another Link</Card.Link>
+                    <Card.Link href="#">More Info</Card.Link>
+                    <Card.Link href="#">Buy Now</Card.Link>
                   </Card.Body>
                 </Card>
               ))}
@@ -126,18 +124,6 @@ class Market extends Component {
   }
 }
 
-// name: c['name'],
-// currency: c['currency'],
-// symbol: c['symbol'],
-// logo_url: c['logo_url'],
-// price: c['price'],
-// rank: c['rank'],
-// price_date: c['price_date'],
-// market_cap: c['market_cap'],
-// circulating_supply: c['circulating_supply'],
-// max_supply: c['max_supply'],
-// high: c['high'],
-// high_timestamp: c['high_timestamp']
 
 const mapStateToProps = state => {
   return { coins: state.data.coins };
