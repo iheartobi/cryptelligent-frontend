@@ -11,7 +11,7 @@ import Home from "./components/Home";
 import Market from "./components/Market";
 import Coins from "./components/Coins";
 import Transactions from "./components/Transactions";
-// import TeamCard from './components/TeamCard'
+import Sell from "./components/Sell";
 
 class App extends Component {
   render() {
@@ -25,6 +25,7 @@ class App extends Component {
           <Route exact path="/home" render={() => <Home />} />
           <Route exact path="/market" render={() => <Market />} />
           <Route exact path="/coins" render={() => <Coins />} />
+          <Route exact path="/sell-coin" render={() => <Sell />} />
           <Route exact path="/transactions" render={() => <Transactions />} />
         </Router>
       </div>

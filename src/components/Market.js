@@ -25,19 +25,19 @@ class Market extends Component {
     const { loading, coins } = this.state;
     const data = JSON.parse(localStorage.getItem("user"));
     const styles = {
-        jumbo: {
-          backgroundImage: `url(${data.user.bg_url})`,
-          backgroundRepeat: "no-repeat",
-          backgroundPosition: "center",
-          backgroundSize: "cover"
-        }
-      };
+      jumbo: {
+        backgroundImage: `url(${data.user.bg_url})`,
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+        backgroundSize: "cover"
+      }
+    };
     if (loading) {
       return (
         <div className="coin-loading">
-            <h4>Loading Most Recent Market Data</h4>
+          <h4>Loading Most Recent Market Data</h4>
+          <br></br>
           <img alt="coin" src={coin_img} />
-          <h5>This may take a minute.....</h5>
         </div>
       );
     } else {
@@ -47,41 +47,41 @@ class Market extends Component {
           <br></br>
           <br></br>
           <Container>
-          <div className="jumbotron" style={styles.jumbo}>
-            <Row>
-              <Col xs={6} md={3}>
-                <center>
-                  <Image
-                    src={data.user.img_url}
-                    height="200px"
-                    width="150px"
-                    alt="profile-photo"
-                    roundedCircle
-                    thumbnail
-                  />
-                </center>
-                <center>
-                  <h5>{data.user.name}, Based on Your Buying Trends</h5>
-                </center>
-              </Col>
-              <Col xs={6} md={5}>
-                <br></br>
-                <br></br>
-                <center>
-                  {" "}
-                  <strong>
-                    {" "}
-                    <h2>Earnings:</h2>{" "}
-                  </strong>
+            <div className="jumbotron" style={styles.jumbo}>
+              <Row>
+                <Col xs={6} md={3}>
+                  <center>
+                    <Image
+                      src={data.user.img_url}
+                      height="200px"
+                      width="150px"
+                      alt="profile-photo"
+                      roundedCircle
+                      thumbnail
+                    />
+                  </center>
+                  <center>
+                    <h5>{data.user.name}, Based on Your Buying Trends</h5>
+                  </center>
+                </Col>
+                <Col xs={6} md={5}>
                   <br></br>
-                  <h1>{data.user.coinbank}</h1>{" "}
-                </center>
-              </Col>
-            </Row>
-            <Row>
-              <></>
-            </Row>
-          </div>
+                  <br></br>
+                  <center>
+                    {" "}
+                    <strong>
+                      {" "}
+                      <h2>Earnings:</h2>{" "}
+                    </strong>
+                    <br></br>
+                    <h1>{data.user.coinbank}</h1>{" "}
+                  </center>
+                </Col>
+              </Row>
+              <Row>
+                <></>
+              </Row>
+            </div>
             <div className="coin-feed">
               {coins.map(coin => (
                 <Card
@@ -103,15 +103,19 @@ class Market extends Component {
                       {"   "} Rank:{coin.rank}
                     </Card.Subtitle>
                     <Card.Text>
-                      Market Cap: {coin.market_cap}
+                      Market Cap:{" "}
+                      {coin.market_cap ? coin.market_cap : "No Data"}
                       <hr></hr>
-                      Price Date: {coin.price_date}
+                      Price: ${coin.price.toFixed(2)}
                       <hr></hr>
-                      Maximum Supply: {coin.max_supply}
+                      Maximum Supply:{" "}
+                      {coin.max_supply ? coin.max_supply : " No Data"}
                       <hr></hr>
-                      Circulating Supply: {coin.circulating_supply}
+                      Circulating Supply:{" "}
+                      {coin.circulating_supply
+                        ? coin.circulating_supply
+                        : " No Data"}
                     </Card.Text>
-                    <Card.Link href="#">More Info</Card.Link>
                     <Card.Link href="#">Buy Now</Card.Link>
                   </Card.Body>
                 </Card>
@@ -123,7 +127,6 @@ class Market extends Component {
     }
   }
 }
-
 
 const mapStateToProps = state => {
   return { coins: state.data.coins };

@@ -4,8 +4,7 @@ import { Card, Container, Image, Row, Col } from "react-bootstrap";
 import coin_img from "../assets/quarter.gif";
 
 const API = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=";
-const key =
-  "{e404419234ea0de2d6ecd4c1c17b081b8f8061edcec686541c9bee35f0e58094}";
+const key = "{REACT_APP_NEWS_KEY}";
 
 class Home extends Component {
   constructor() {
@@ -50,41 +49,41 @@ class Home extends Component {
           <br></br>
           <br></br>
           <Container>
-          <div className="jumbotron" style={styles.jumbo}>
-            <Row>
-              <Col xs={6} md={3}>
-                <center>
-                  <Image
-                    src={data.user.img_url}
-                    height="200px"
-                    width="150px"
-                    alt="profile-photo"
-                    roundedCircle
-                    thumbnail
-                  />
-                </center>
-                <center>
-                  <h5>Top Stories For You {data.user.name}</h5>
-                </center>
-              </Col>
-              <Col xs={6} md={5}>
-                <br></br>
-                <br></br>
-                <center>
-                  {" "}
-                  <strong>
-                    {" "}
-                    <h2>Earnings:</h2>{" "}
-                  </strong>
+            <div className="jumbotron" style={styles.jumbo}>
+              <Row>
+                <Col xs={6} md={3}>
+                  <center>
+                    <Image
+                      src={data.user.img_url}
+                      height="200px"
+                      width="150px"
+                      alt="profile-photo"
+                      roundedCircle
+                      thumbnail
+                    />
+                  </center>
+                  <center>
+                    <h5>Top Stories For You {data.user.name}</h5>
+                  </center>
+                </Col>
+                <Col xs={6} md={5}>
                   <br></br>
-                  <h1>{data.user.coinbank}</h1>{" "}
-                </center>
-              </Col>
-            </Row>
-            <Row>
-              <></>
-            </Row>
-          </div>
+                  <br></br>
+                  <center>
+                    {" "}
+                    <strong>
+                      {" "}
+                      <h2>Earnings:</h2>{" "}
+                    </strong>
+                    <br></br>
+                    <h1>{data.user.coinbank}</h1>{" "}
+                  </center>
+                </Col>
+              </Row>
+              <Row>
+                <></>
+              </Row>
+            </div>
             <div className="news-feed">
               {newsFeed.Data.map(news => (
                 <Card style={{ width: "18rem" }} key={news.id}>
