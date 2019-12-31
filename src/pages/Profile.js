@@ -1,10 +1,10 @@
-import React from "react";
-import { Component } from "react";
+import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../components/NavBar";
-import { Container, Row, Image, Col, Table } from "react-bootstrap";
+import { Container, Row, Image, Col, Table} from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Modal from "react-responsive-modal";
+import ToolTip from '../components/ToolTip'
 
 class Profile extends Component {
   state = {
@@ -98,6 +98,8 @@ class Profile extends Component {
                     roundedCircle
                     thumbnail
                   />
+                  <ToolTip/>
+                
                 </center>
                 <center>
                   <h5>Welcome Back, {data.user.name}</h5>
