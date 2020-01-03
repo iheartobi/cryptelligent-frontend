@@ -1,0 +1,14 @@
+import React from 'react'
+import NewsCard from './NewsCard'
+
+const NewsList = (props) => {
+
+    return(
+        <div className="news-feed">
+        {props.news.map(news => <NewsCard key={news.id} news={news}/>)}
+        </div>
+
+    )
+}
+export default NewsList
+

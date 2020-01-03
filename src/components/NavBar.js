@@ -1,5 +1,6 @@
 import React from "react";
-import { Navbar, Nav, Form, FormControl, Button, Container } from "react-bootstrap";
+import Search from "./Search";
+import { Navbar, Nav, Form, Container } from "react-bootstrap";
 
 const NavBar = props => (
   <div>
@@ -12,14 +13,10 @@ const NavBar = props => (
           <Nav.Link href="/market">Market</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
-        <Nav.Link href="/login">Logout</Nav.Link>
-
-
-
+          <Nav.Link href="/login">Logout</Nav.Link>
         </Nav>
         <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-dark">Search</Button>
+          <Search handleChange={props.handleChange} />
         </Form>
       </Navbar>
     </Container>

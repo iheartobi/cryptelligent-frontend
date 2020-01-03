@@ -9,7 +9,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import Home from "./components/Home";
 import Market from "./components/Market";
-import Coins from "./components/Coins";
+import CoinCard from "./components/CoinCard";
 import Transactions from "./components/Transactions";
 import Sell from "./components/Sell";
 
@@ -24,7 +24,7 @@ class App extends Component {
           <Route exact path="/signup" render={() => <SignUp />} />
           <Route exact path="/home" render={() => <Home />} />
           <Route exact path="/market" render={() => <Market />} />
-          <Route exact path="/coins" render={() => <Coins />} />
+          <Route exact path="/coins" render={() => <CoinCard />} />
           <Route exact path="/sell-coin" render={() => <Sell />} />
           <Route exact path="/transactions" render={() => <Transactions />} />
         </Router>

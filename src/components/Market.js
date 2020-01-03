@@ -1,37 +1,93 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { getCoins } from "../services/backend";
+import { getCoins, getUserInfo } from "../services/backend";
 import NavBar from "./NavBar";
-import { Card, Container, Row, Col, Image } from "react-bootstrap";
+import { Container } from "react-bootstrap";
 import coin_img from "../assets/quarter.gif";
+import CoinList from "./CoinList";
+import Jumbotron from "./Jumbotron";
+
+const TRANS_API = 'http://localhost:3000/transactions/'
+
 
 class Market extends Component {
   constructor() {
     super();
     this.state = {
       coins: [],
-      loading: true
+      coin: {},
+      user: {},
+      loading: true,
+      value: ""
     };
   }
   componentDidMount() {
     getCoins().then(data => {
       this.setState({ coins: data, loading: false });
       this.props.dispatch({ type: "GET_COINS", data });
-      console.log(data);
+    })
+    if(localStorage.hasOwnProperty("user")){
+     let userId = JSON.parse(localStorage.getItem("user"))
+     getUserInfo(userId.user.id).then(uData => {
+       this.setState({user: uData})
+       this.props.dispatch({type: 'GET_USER', uData})
+       console.log(this.state.user)
+       
+     });
+    } 
+  }
+
+
+  handleChange = e => {
+    console.log(e.target.value);
+    this.setState({
+      value: e.target.value
     });
+  };
+
+  handleClick = (e, id) => {
+    e.preventDefault();
+    if (this.state.coins.filter(coin => coin.id === id)) {
+      const uId = this.state.user.id
+      const cId = id.coin.id
+      const newTrans = {user_id: uId, coin_id: cId}
+      fetch(`${TRANS_API}`, {
+        method: "POST", 
+        headers: {
+          "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify(newTrans)
+      }).then(res => res.json())
+      .then(data => {
+        console.log(data.coin)
+        console.log(this.state.user)
+        this.setState({ user: this.state.user, ...this.state.user.coins, data})
+      //  localStorage.setItem("nuser", JSON.stringify(this.state.user));
+      //  console.log(this.state)
+    })
+      //POST FETCH TO TRANSACTIONS
+
+    } 
+  };
+
+  filterInput() {
+    return this.state.coins.filter(coins =>
+      coins.name.toLowerCase().includes(this.state.value)
+    );
   }
 
   render() {
-    const { loading, coins } = this.state;
-    const data = JSON.parse(localStorage.getItem("user"));
-    const styles = {
-      jumbo: {
-        backgroundImage: `url(${data.user.bg_url})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "cover"
-      }
-    };
+    const { loading, coin, user } = this.state;
+    const data = (
+      JSON.parse(localStorage.getItem("user"))
+    )
+    console.log(data)
+    // console.log(this.state.coin.coin)
+    //LOOK AT BOOKLIKER ON LEARN
+    //LOOK AT BOT BTTLR
+    // const coinPrice = this.state.coin.coin.price
+    // const boughtCoin = ((data.user.coinbank.toFixed(2)) - coin.coin)
+
     if (loading) {
       return (
         <div className="coin-loading">
@@ -43,84 +99,16 @@ class Market extends Component {
     } else {
       return (
         <div>
-          <NavBar />
+          <NavBar handleChange={this.handleChange} />
           <br></br>
           <br></br>
           <Container>
-            <div className="jumbotron" style={styles.jumbo}>
-              <Row>
-                <Col xs={6} md={3}>
-                  <center>
-                    <Image
-                      src={data.user.img_url}
-                      height="200px"
-                      width="150px"
-                      alt="profile-photo"
-                      roundedCircle
-                      thumbnail
-                    />
-                  </center>
-                  <center>
-                    <h5>{data.user.name}, Based on Your Buying Trends</h5>
-                  </center>
-                </Col>
-                <Col xs={6} md={5}>
-                  <br></br>
-                  <br></br>
-                  <center>
-                    {" "}
-                    <strong>
-                      {" "}
-                      <h2>Earnings:</h2>{" "}
-                    </strong>
-                    <br></br>
-                    <h1>{data.user.coinbank}</h1>{" "}
-                  </center>
-                </Col>
-              </Row>
-              <Row>
-                <></>
-              </Row>
-            </div>
-            <div className="coin-feed">
-              {coins.map(coin => (
-                <Card
-                  variant="dark"
-                  key={coin.id}
-                  style={{ width: "16rem", height: "32rem" }}
-                >
-                  <br></br>
-                  <img
-                    height="60px"
-                    width="60px"
-                    alt="coin"
-                    src={coin.logo_url}
-                  />
-                  <Card.Body>
-                    <Card.Title>{coin.name}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {coin.symbol}
-                      {"   "} Rank:{coin.rank}
-                    </Card.Subtitle>
-                    <Card.Text>
-                      Market Cap:{" "}
-                      {coin.market_cap ? coin.market_cap : "No Data"}
-                      <hr></hr>
-                      Price: ${coin.price.toFixed(2)}
-                      <hr></hr>
-                      Maximum Supply:{" "}
-                      {coin.max_supply ? coin.max_supply : " No Data"}
-                      <hr></hr>
-                      Circulating Supply:{" "}
-                      {coin.circulating_supply
-                        ? coin.circulating_supply
-                        : " No Data"}
-                    </Card.Text>
-                    <Card.Link href="#">Buy Now</Card.Link>
-                  </Card.Body>
-                </Card>
-              ))}
-            </div>
+            <Jumbotron data={this.state.user} />
+            <CoinList
+              handleClick={this.handleClick}
+              coins={this.filterInput()}
+              coin={this.state.coin}
+            />
           </Container>
         </div>
       );
@@ -129,6 +117,6 @@ class Market extends Component {
 }
 
 const mapStateToProps = state => {
-  return { coins: state.data.coins };
+  return { coins: state.data.coins, user: state.user.user };
 };
 export default connect(mapStateToProps)(Market);

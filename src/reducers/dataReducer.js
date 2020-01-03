@@ -1,7 +1,7 @@
 const initialState = {
   coin: {},
   coins: [],
-  page: 0
+  news: []
 };
 
 export default (state = initialState, action) => {
@@ -9,11 +9,9 @@ export default (state = initialState, action) => {
     case "GET_COINS": {
       return { ...state, coins: action.data };
     }
-    case 'NEXT_PAGE': {
-        // const newPage = state.page === 24 ? 0 : state.page + 1;
-        const newPage = state.page + 1 % 24;
-        return { ...state, page: newPage }
-      }
+    case "ALL_NEWS": {
+      return { ...state, news: action.data };
+    }
     default: {
       return state;
     }

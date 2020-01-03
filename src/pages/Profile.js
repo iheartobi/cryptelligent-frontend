@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import NavBar from "../components/NavBar";
-import { Container, Row, Image, Col, Table} from "react-bootstrap";
+import { Container, Table} from "react-bootstrap";
 import { Nav } from "react-bootstrap";
 import Modal from "react-responsive-modal";
-import ToolTip from '../components/ToolTip'
+import Jumbotron from '../components/Jumbotron'
 
 class Profile extends Component {
   state = {
@@ -29,16 +29,7 @@ class Profile extends Component {
       }
     };
     const data = JSON.parse(localStorage.getItem("user"));
-
-    const styles = {
-      jumbo: {
-        backgroundImage: `url(${data.user.bg_url})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "cover"
-      }
-    };
-
+    console.log(data)
     const userTrans = data.user.coins.map((coin, index) => {
       const {
         id,
@@ -83,49 +74,9 @@ class Profile extends Component {
       );
     });
 
-    const userPhoto = (
-      <div className="photo-container">
-        <Container>
-          <div className="jumbotron" style={styles.jumbo}>
-            <Row>
-              <Col xs={6} md={3}>
-                <center>
-                  <Image
-                    src={data.user.img_url}
-                    height="200px"
-                    width="150px"
-                    alt="profile-photo"
-                    roundedCircle
-                    thumbnail
-                  />
-                  <ToolTip/>
-                
-                </center>
-                <center>
-                  <h5>Welcome Back, {data.user.name}</h5>
-                </center>
-              </Col>
-              <Col xs={6} md={5}>
-                <br></br>
-                <br></br>
-                <center>
-                  {" "}
-                  <strong>
-                    {" "}
-                    <h2>Earnings:</h2>{" "}
-                  </strong>
-                  <br></br>
-                  <h1>{data.user.coinbank}</h1>{" "}
-                </center>
-              </Col>
-            </Row>
-          </div>
-        </Container>
-      </div>
-    );
 
     const userTable = (
-      <Container>
+      
         <Table striped bordered hover>
           <thead>
             <tr>
@@ -146,16 +97,18 @@ class Profile extends Component {
             )}
           </tbody>
         </Table>
-      </Container>
+      
     );
 
     return (
       <div>
         <NavBar />
         <br></br>
-        {userPhoto}
         <br></br>
+        <Container>
+        <Jumbotron data={data}/>
         {userTable}
+        </Container>  
       </div>
     );
   }

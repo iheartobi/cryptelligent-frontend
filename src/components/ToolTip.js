@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 class ToolTip extends Component {
   render() {
-    let { state } = this;
+    // let { state } = this;
 
     return (
       <div id="tooltip" className="on bottom">

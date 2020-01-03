@@ -1,6 +1,5 @@
 const initialState = {
-    user: {},
-    users: []
+    user: {}
 }
 
 export default (state = initialState, action) => {
@@ -9,6 +8,12 @@ export default (state = initialState, action) => {
             return { ...state, user: action.data}
         }
         case 'LOGIN_USER': {
+            return { ...state, user: action.data}
+        }
+        case 'LOGOUT_USER': {
+            return { ...state, user: action.data}
+        }
+        case 'GET_USER': {
             return { ...state, user: action.data}
         }
         default: {
