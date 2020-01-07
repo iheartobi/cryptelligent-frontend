@@ -12,6 +12,7 @@ class UserTable extends Component {
 
     getKeys = function(){
       return Object.keys(this.props.data[0])
+      
   }
 
   getHeader = function(){
