@@ -24,7 +24,8 @@ class Login extends Component {
     this.state = {
       username: "",
       password: "",
-      loading: false
+      loading: false, 
+      user: {}
     };
   }
 
@@ -106,7 +107,7 @@ class Login extends Component {
 }
 
 const mapStateToProps = state => {
-  return { user: state.user};
+  return { user: state.user.user };
 };
 
 export default connect(mapStateToProps)(Login);

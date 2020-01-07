@@ -5,6 +5,7 @@ import NavBar from "./NavBar";
 import { Container } from "react-bootstrap";
 import coin_img from "../assets/quarter.gif";
 import Jumbotron from "../components/Jumbotron";
+import { getUserInfo } from '../services/backend'
 
 const API = "https://min-api.cryptocompare.com/data/v2/news/?lang=EN&api_key=";
 const key = "{REACT_APP_NEWS_KEY}";
@@ -13,20 +14,29 @@ class Home extends Component {
   constructor() {
     super();
     this.state = {
-      isLoaded: false,
+      loading: true,
       newsFeed: [],
       error: null,
-      value: " "
+      value: " ", 
+      user: {}
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     fetch(API + key)
       .then(res => res.json())
       .then(data => {
-        this.setState({ newsFeed: data, isLoaded: true });
+        this.setState({ newsFeed: data, loading: false });
         this.props.dispatch({ type: "ALL_NEWS", data });
-      });
+      })
+      if (localStorage.hasOwnProperty("user")) {
+        let userId = JSON.parse(localStorage.getItem("user"));
+       await getUserInfo(userId.user.id).then(data => {
+          this.props.dispatch({ type: "GET_USER", data });
+          this.setState({ user: data });
+          console.log(this.state.user);
+        });
+      }
   }
 
   handleChange = e => {
@@ -46,10 +56,10 @@ class Home extends Component {
   }
 
   render() {
-    const { isLoaded } = this.state;
+    const { loading } = this.state;
     const data = JSON.parse(localStorage.getItem("user"));
 
-    if (!isLoaded) {
+    if (loading) {
       return (
         <div className="coin-loading">
           <img alt="coin" src={coin_img} />
@@ -62,7 +72,7 @@ class Home extends Component {
           <br></br>
           <br></br>
           <Container>
-            <Jumbotron data={data} />
+            <Jumbotron data={this.state.user} />
             <NewsList news={this.filterInput()} />
           </Container>
         </div>
@@ -71,7 +81,7 @@ class Home extends Component {
   }
 }
 const mapStateToProps = state => {
-  return { news: state.data.news };
+  return { news: state.data.news, user: state.user };
 };
 
 export default connect(mapStateToProps)(Home);

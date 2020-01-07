@@ -28,9 +28,9 @@ class Market extends Component {
     })
     if(localStorage.hasOwnProperty("user")){
      let userId = JSON.parse(localStorage.getItem("user"))
-     getUserInfo(userId.user.id).then(uData => {
-       this.setState({user: uData})
-       this.props.dispatch({type: 'GET_USER', uData})
+     getUserInfo(userId.user.id).then(data => {
+       this.setState({user: data})
+       this.props.dispatch({type: 'GET_USER', data})
        console.log(this.state.user)
        
      });
@@ -62,10 +62,8 @@ class Market extends Component {
         console.log(data.coin)
         console.log(this.state.user)
         this.setState({ user: this.state.user, ...this.state.user.coins, data})
-      //  localStorage.setItem("nuser", JSON.stringify(this.state.user));
-      //  console.log(this.state)
+      
     })
-      //POST FETCH TO TRANSACTIONS
 
     } 
   };
@@ -77,17 +75,8 @@ class Market extends Component {
   }
 
   render() {
-    const { loading, coin, user } = this.state;
-    const data = (
-      JSON.parse(localStorage.getItem("user"))
-    )
-    console.log(data)
-    // console.log(this.state.coin.coin)
-    //LOOK AT BOOKLIKER ON LEARN
-    //LOOK AT BOT BTTLR
-    // const coinPrice = this.state.coin.coin.price
-    // const boughtCoin = ((data.user.coinbank.toFixed(2)) - coin.coin)
-
+    const { loading } = this.state;
+    
     if (loading) {
       return (
         <div className="coin-loading">
@@ -117,6 +106,6 @@ class Market extends Component {
 }
 
 const mapStateToProps = state => {
-  return { coins: state.data.coins, user: state.user.user };
+  return { coins: state.data.coins, user: state.user };
 };
 export default connect(mapStateToProps)(Market);
