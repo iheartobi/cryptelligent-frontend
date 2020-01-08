@@ -7,8 +7,8 @@ import coin_img from "../assets/quarter.gif";
 import CoinList from "./CoinList";
 import Jumbotron from "./Jumbotron";
 
-const TRANS_API = 'http://localhost:3000/transactions/'
-
+const TRANS_API = "http://localhost:3000/transactions/";
+const USER_API = "http://localhost:3000/users/";
 
 class Market extends Component {
   constructor() {
@@ -25,18 +25,15 @@ class Market extends Component {
     getCoins().then(data => {
       this.setState({ coins: data, loading: false });
       this.props.dispatch({ type: "GET_COINS", data });
-    })
-    if(localStorage.hasOwnProperty("user")){
-     let userId = JSON.parse(localStorage.getItem("user"))
-     getUserInfo(userId.user.id).then(data => {
-       this.setState({user: data})
-       this.props.dispatch({type: 'GET_USER', data})
-       console.log(this.state.user)
-       
-     });
-    } 
+    });
+    if (localStorage.hasOwnProperty("user")) {
+      let userId = JSON.parse(localStorage.getItem("user"));
+      getUserInfo(userId.user.id).then(data => {
+        this.setState({ user: data });
+        this.props.dispatch({ type: "GET_USER", data });
+      });
+    }
   }
-
 
   handleChange = e => {
     console.log(e.target.value);
@@ -48,24 +45,43 @@ class Market extends Component {
   handleClick = (e, id) => {
     e.preventDefault();
     if (this.state.coins.filter(coin => coin.id === id)) {
-      const uId = this.state.user.id
-      const cId = id.coin.id
-      const newTrans = {user_id: uId, coin_id: cId}
+      const uId = this.state.user.id;
+      const cId = id.coin.id;
+      const newTrans = { user_id: uId, coin_id: cId };
+      const newCoinBank = {
+        coinbank: this.state.user.coinbank - id.coin.price
+      };
       fetch(`${TRANS_API}`, {
-        method: "POST", 
+        method: "POST",
         headers: {
           "Content-Type": "application/json"
-        }, 
+        },
         body: JSON.stringify(newTrans)
-      }).then(res => res.json())
-      .then(data => {
-        console.log(data.coin)
-        console.log(this.state.user)
-        this.setState({ user: this.state.user, ...this.state.user.coins, data})
-      
-    })
-
-    } 
+      })
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            user: this.state.user,
+            ...this.state.user.coins,
+            data
+          });
+        });
+      fetch(`${USER_API}${uId}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(newCoinBank)
+      })
+        .then(res => res.json())
+        .then(data => {
+          this.setState({
+            user: this.state.user,
+            ...this.state.user.coinbank,
+            data
+          });
+        });
+    }
   };
 
   filterInput() {
@@ -75,8 +91,8 @@ class Market extends Component {
   }
 
   render() {
-    const { loading } = this.state;
-    
+    const { loading, user } = this.state;
+
     if (loading) {
       return (
         <div className="coin-loading">
@@ -92,7 +108,7 @@ class Market extends Component {
           <br></br>
           <br></br>
           <Container>
-            <Jumbotron data={this.state.user} />
+            <Jumbotron data={user} />
             <CoinList
               handleClick={this.handleClick}
               coins={this.filterInput()}

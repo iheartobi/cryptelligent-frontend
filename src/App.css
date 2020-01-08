@@ -86,6 +86,16 @@
   flex-grow: 3;
   justify-content: space-evenly;
 }
+ .user-table {
+  /* display: block; */
+  /* object-fit: fill; */
+  /* width: 100%; */
+  /* flex-direction:  row; */
+  /* flex-wrap: wrap; */
+  /* flex-grow: 5; */
+  /* justify-content: space-evenly; */
+ } 
+
 
 .coin-feed {
   display: flex;

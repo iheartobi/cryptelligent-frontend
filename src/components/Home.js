@@ -56,9 +56,7 @@ class Home extends Component {
   }
 
   render() {
-    const { loading } = this.state;
-    const data = JSON.parse(localStorage.getItem("user"));
-
+    const { loading } = this.state
     if (loading) {
       return (
         <div className="coin-loading">
