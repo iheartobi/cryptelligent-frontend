@@ -26,7 +26,7 @@ const CoinCard = props => {
         <Card.Text>
           Market Cap: {market_cap ? market_cap : "No Data"}
           <hr></hr>
-          Price: ${price.toFixed(2)}
+          Price: ${price}
           <hr></hr>
           Maximum Supply: {max_supply ? max_supply : " No Data"}
           <hr></hr>

@@ -8,10 +8,18 @@ import UserTable from "../components/UserTable";
 
 class Profile extends Component {
   state = {
-    open: false,
+   open: false,
     user: {},
     loading: true
   };
+  // onOpenModal = () => {
+  //   this.setState({ open: true });
+  // };
+
+  // onCloseModal = () => {
+  //   this.setState({ open: false });
+  // };
+  
 
   async componentDidMount() {
     if (localStorage.hasOwnProperty("user")) {
@@ -25,11 +33,11 @@ class Profile extends Component {
   }
 
   render() {
-    const { loading, user } = this.state;
+    const { loading, user, open } = this.state;
 
     const userTable = (
       <Table className="user-table" striped bordered hover>
-        <UserTable data={user.coins} />
+        <UserTable open={open} onClick={this.props.onOpenModal} data={user.coins} />
       </Table>
     );
     if (loading) {

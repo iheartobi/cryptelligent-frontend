@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Nav } from "react-bootstrap";
+import { Nav, Button } from "react-bootstrap";
+import CoinModal from "./CoinModal";
 
 class UserTable extends Component {
   constructor(props) {
@@ -8,11 +9,14 @@ class UserTable extends Component {
     this.getHeader = this.getHeader.bind(this);
     this.getRowsData = this.getRowsData.bind(this);
     this.getKeys = this.getKeys.bind(this);
+    this.state = {
+        open: false
+    }
+   
   }
+  
 
   getKeys = function() {
-    //   console.log(this.props.data[0])
-    // return Object.keys(this.props.data[0]);
     const allowed = ["id", "name", "price", "created_at"];
 
     const filtered = Object.keys(this.props.data[0])
@@ -23,7 +27,7 @@ class UserTable extends Component {
           [key]: this.props.data[0][key]
         };
       }, {});
-      return Object.keys(filtered)
+    return Object.keys(filtered);
   };
 
   getHeader = function() {
@@ -39,7 +43,15 @@ class UserTable extends Component {
     return items.map((row, index) => {
       return (
         <tr key={index}>
-          <RenderRow key={index} data={row} keys={keys} />
+          <RenderRow
+            onClick={() => this.onOpenModal}
+            key={index}
+            data={row}
+            keys={keys}
+          />
+          {/* <CoinModal onClick={() => this.onOpenModal} data={row} /> */}
+          {/* <Button variant="secondary"
+          onclick={() => this.setState({open: true})}></Button> */}
         </tr>
       );
     });
@@ -55,21 +67,21 @@ class UserTable extends Component {
       );
     } else {
       return (
-        
-          <>
-            <thead>
-              <tr>{this.getHeader()}</tr>
-            </thead>
-            <tbody>{this.getRowsData()}</tbody>
-          </>
-        
+        <>
+          <thead>
+            <tr>{this.getHeader()}</tr>
+          </thead>
+          <tbody>{this.getRowsData()}</tbody>
+        </>
       );
     }
   }
 }
 const RenderRow = props => {
   return props.keys.map((key, index) => {
-    return <td key={props.data[key]}>{props.data[key]}</td>;
+    return <td key={props.data[key]}>{props.data[key]}
+        <CoinModal onClick={() => this.onOpenModal()}  />
+    </td>;
   });
 };
 
