@@ -3,7 +3,6 @@ import { Row, Col, Image } from "react-bootstrap";
 
 class Jumbotron extends Component {
   render() {
-    console.log(this.props.data)
     const styles = {
       jumbo: {
         backgroundImage: `url(${this.props.data.bg_url})`,

@@ -46,6 +46,8 @@ class Home extends Component {
     });
   };
 
+  
+
   filterInput() {
     return this.state.newsFeed.Data.filter(
       news =>
@@ -66,7 +68,7 @@ class Home extends Component {
     } else {
       return (
         <div>
-          <NavBar handleChange={this.handleChange} />
+          <NavBar  handleChange={this.handleChange} />
           <br></br>
           <br></br>
           <Container>

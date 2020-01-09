@@ -44,23 +44,16 @@ class Market extends Component {
 
   handleClick = (e, id) => {
     e.preventDefault();
-    const newCoinBank = {
-      coinbank: (this.state.user.coinbank - id.coin.price)
-    };
-    this.setState({
-      user: this.state.user,
-      ...this.state.user.coins,
-      newCoinBank
-    });
+
     if (this.state.coins.filter(coin => coin.id === id)) {
       const uId = this.state.user.id;
       const cId = id.coin.id;
       const newTrans = { user_id: uId, coin_id: cId };
       const newCoinBank = {
-        coinbank: (this.state.user.coinbank - id.coin.price)
+        coinbank: this.state.user.coinbank - id.coin.price
       };
-    
-      console.log(this.state.user.coinbank)
+
+      console.log(this.state.user.coinbank);
       fetch(`${TRANS_API}`, {
         method: "POST",
         headers: {
@@ -76,8 +69,7 @@ class Market extends Component {
             data
           });
         });
-       
-        
+
       fetch(`${USER_API}${uId}`, {
         method: "PATCH",
         headers: {
@@ -87,16 +79,15 @@ class Market extends Component {
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data)
+          console.log(data);
           this.setState({
             user: this.state.user,
             ...this.state.user.coinbank,
             data
           });
         });
-        
-      }
-      console.log(this.state.user)
+    }
+    console.log(this.state.user);
   };
 
   filterInput() {
@@ -107,7 +98,7 @@ class Market extends Component {
 
   render() {
     const { loading } = this.state;
-    console.log(this.state.user)
+    console.log(this.state.user);
 
     if (loading) {
       return (
@@ -120,7 +111,7 @@ class Market extends Component {
     } else {
       return (
         <div>
-          <NavBar handleChange={this.handleChange} />
+          <NavBar  handleChange={this.handleChange} />
           <br></br>
           <br></br>
           <Container>
