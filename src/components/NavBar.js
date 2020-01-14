@@ -13,7 +13,6 @@ const NavBar = props => (
           <Nav.Link href="/market">Market</Nav.Link>
         </Nav>
         <Nav className="ml-auto">
-        {/* onClick={ props.handleLogOut} */}
           <Nav.Link href="/login" >Logout</Nav.Link>
         </Nav>
         <Form inline>

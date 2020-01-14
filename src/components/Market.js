@@ -21,6 +21,7 @@ class Market extends Component {
       value: ""
     };
   }
+
   componentDidMount() {
     getCoins().then(data => {
       this.setState({ coins: data, loading: false });
@@ -43,17 +44,20 @@ class Market extends Component {
   };
 
   handleClick = (e, id) => {
-    e.preventDefault();
-
     if (this.state.coins.filter(coin => coin.id === id)) {
       const uId = this.state.user.id;
       const cId = id.coin.id;
       const newTrans = { user_id: uId, coin_id: cId };
-      const newCoinBank = {
-        coinbank: this.state.user.coinbank - id.coin.price
-      };
+      const coinBank = { coinbank: this.state.user.coinbank - id.coin.price };
+      let newCoinBank = this.state.user.coinbank - id.coin.price;
+      this.setState(state => ({
+        user: {
+          ...state.user,
+          coinbank: newCoinBank
+        }
+      }));
 
-      console.log(this.state.user.coinbank);
+
       fetch(`${TRANS_API}`, {
         method: "POST",
         headers: {
@@ -68,26 +72,20 @@ class Market extends Component {
             ...this.state.user.coins,
             data
           });
-        });
+        })
+        .catch(err => alert(err));
 
       fetch(`${USER_API}${uId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(newCoinBank)
+        body: JSON.stringify(coinBank)
       })
         .then(res => res.json())
-        .then(data => {
-          console.log(data);
-          this.setState({
-            user: this.state.user,
-            ...this.state.user.coinbank,
-            data
-          });
-        });
+        .then(data => console.log(data))
+        .catch(err => alert(err));
     }
-    console.log(this.state.user);
   };
 
   filterInput() {
@@ -97,8 +95,7 @@ class Market extends Component {
   }
 
   render() {
-    const { loading } = this.state;
-    console.log(this.state.user);
+    const { loading, user } = this.state;
 
     if (loading) {
       return (
@@ -111,11 +108,11 @@ class Market extends Component {
     } else {
       return (
         <div>
-          <NavBar  handleChange={this.handleChange} />
+          <NavBar handleChange={this.handleChange} />
           <br></br>
           <br></br>
           <Container>
-            <Jumbotron data={this.state.user} />
+            <Jumbotron data={user} />
             <CoinList
               handleClick={this.handleClick}
               coins={this.filterInput()}

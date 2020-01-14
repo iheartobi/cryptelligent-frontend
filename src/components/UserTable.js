@@ -41,11 +41,11 @@ class UserTable extends Component {
 
     return items.map((row, index) => {
       return (
-        <tr key={index}>
-          <RenderRow key={index} data={row} keys={keys} />
+        <tr id={index} key={`${row.updated_at}${index}`}>
+          <RenderRow id={index}  data={row} keys={keys} />
           <button
             className="sell-button"
-            key={index}
+            key={row.created_at}
             value={row}
             onClick={(e) => this.props.handleButtonClick(e, row)}
           >

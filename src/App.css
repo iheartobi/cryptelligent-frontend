@@ -2,10 +2,9 @@
   text-align: center;
   
 }
-
-/* body {
+body {
   background-color: white;
-} */
+} 
 
 .App-logo {
   height: 40vmin;
@@ -119,4 +118,33 @@
   color: whitesmoke;
   font-size: 50em;
 
+}
+.earning-amount{
+font-size: 80px;
+font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.CircularProgressbar {
+ fill: transparent;
+ height: 184px;
+ stroke: white;
+ font: white;
+ 
+  
+}
+.CircularProgressbar-trail {
+  stroke: gray;
+  color: gray;
+  stroke-linecap: round;
+  
+  transform: rotate(0.25turn);
+  transform-origin: 'center center',
+}
+.CircularProgressbar-text {
+  fill: white;
+  color: white
+}
+.CircularProgressbar-path {
+  
+  color: white;
 }

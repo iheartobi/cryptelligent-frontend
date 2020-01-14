@@ -14,17 +14,39 @@ class Profile extends Component {
     loading: true
   };
 
+  componentDidMount() {
+    if (localStorage.hasOwnProperty("user")) {
+      let userId = JSON.parse(localStorage.getItem("user"));
+      getUserInfo(userId.user.id).then(data => {
+        this.props.dispatch({ type: "GET_USER", data });
+        this.setState({ user: data, loading: false });
+      });
+    }
+  }
+
   handleButtonClick = (e, props) => {
-    e.preventDefault();
-    if (this.props.user.coins.filter(coin => coin.id === props.id)) {
-      console.log(props.price);
-      console.log(this.state.user.id);
+    console.log(this.props)
+    if (this.state.user.coins.filter(coin => coin.id === props.id)) {
+      const newCoinArr = this.props.user.coins.filter(coin => {
+        return coin.id !== props.id;
+      });
+      const newCoinBank = this.state.user.coinbank + props.price;
       const cId = props.id;
       const uId = this.state.user.id;
+      const coinBank = { coinbank: this.state.user.coinbank + props.price };
+
       const removeTrans = { user_id: uId, coin_id: cId };
-      const newCoinBank = {
-        coinbank: this.state.user.coinbank + props.price
-      };
+      this.setState(state => ({
+        user: {
+          ...state.user,
+          coinbank: newCoinBank, 
+          coins: newCoinArr
+        }
+      }));
+
+      console.log(props.id);
+      console.log(this.state.user.coins);
+
       fetch(`${TRANS_API}`, {
         method: "DELETE",
         headers: {
@@ -39,44 +61,37 @@ class Profile extends Component {
             ...this.state.user.coins,
             data
           });
-        });
+        })
+        .catch(err => alert(err));
 
       fetch(`${USER_API}${uId}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(newCoinBank)
+        body: JSON.stringify(coinBank)
       })
         .then(res => res.json())
         .then(data => {
-          console.log(data);
-          this.setState({
-            user: this.state.user,
-            ...this.state.user.coinbank,
-            data
-          });
+          console.log(data.coinbank);
+          this.setState(state => ({
+            user: {
+              ...state.user,
+              coinbank: data.coinbank, 
+              coins: data.coins
+            }
+          }));
         });
+        console.log(this.state.user)
     }
   };
-
-  async componentDidMount() {
-    if (localStorage.hasOwnProperty("user")) {
-      let userId = JSON.parse(localStorage.getItem("user"));
-      await getUserInfo(userId.user.id).then(data => {
-        this.props.dispatch({ type: "GET_USER", data });
-        this.setState({ user: data, loading: false });
-        console.log(this.state.user);
-      });
-    }
-  }
 
   render() {
     const { loading, user } = this.state;
 
     const userTable = (
-      <Table className="user-table" striped bordered hover>
-        <UserTable
+      <Table  {...this.state.user.coins} className="user-table" striped bordered hover>
+        <UserTable 
           handleButtonClick={this.handleButtonClick}
           data={user.coins}
         />
@@ -92,12 +107,11 @@ class Profile extends Component {
     } else {
       return (
         <div>
-          <NavBar/>
+          <NavBar />
           <br></br>
           <br></br>
           <Container>
             <Jumbotron data={user} />
-
             {userTable}
           </Container>
         </div>

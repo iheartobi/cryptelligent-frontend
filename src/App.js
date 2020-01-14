@@ -10,34 +10,23 @@ import SignUp from "./pages/SignUp";
 import Home from "./components/Home";
 import Market from "./components/Market";
 import CoinCard from "./components/CoinCard";
-import Transactions from "./components/Transactions";
 import Sell from "./components/Sell";
 
 class App extends Component {
-
-  // handleLogOut = (e, props) => {
-  //   e.preventDefault()
-  //   console.log( e)
-  //   if (localStorage.hasOwnProperty("user")){
-  //     localStorage.removeItem("user")
-  //     localStorage.clear("token")
-  //   }
-  // }
+ 
   render() {
-    console.log(this.props)
+    console.log(this.props);
     return (
       <div>
         <Router history={history}>
           <Route exact path="/" render={() => <Landing />} />
-          <Route exact path="/profile" render={() => <Profile  />} />
-          {/* handleLogOut={this.handleLogOut} */}
+          <Route exact path="/profile" render={() => <Profile />} />
           <Route exact path="/login" render={() => <Login />} />
           <Route exact path="/signup" render={() => <SignUp />} />
-          <Route exact path="/home" render={() => <Home  />} />
+          <Route exact path="/home" render={() => <Home />} />
           <Route exact path="/market" render={() => <Market />} />
           <Route exact path="/coins" render={() => <CoinCard />} />
           <Route exact path="/sell-coin" render={() => <Sell />} />
-          <Route exact path="/transactions" render={() => <Transactions />} />
         </Router>
       </div>
     );
