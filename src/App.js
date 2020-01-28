@@ -13,7 +13,6 @@ import CoinCard from './components/CoinCard';
 
 class App extends Component {
   render() {
-    console.log(this.props);
     return (
       <div>
         <Router history={history}>

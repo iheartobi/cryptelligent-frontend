@@ -5,7 +5,6 @@ import 'chart.js';
 
 class Jumbotron extends Component {
   render() {
-    console.log(this.props);
     const { coins } = this.props.data;
     const arrayOfPrice =
       coins &&
@@ -15,7 +14,6 @@ class Jumbotron extends Component {
     const reducer = (acc, curr) => acc + curr;
     const coinAmount = arrayOfPrice && arrayOfPrice.reduce(reducer, 0);
 
-    console.log(arrayOfPrice);
 
     const styles = {
       jumbo: {
@@ -33,7 +31,6 @@ class Jumbotron extends Component {
         <Container>
           <Row>
             <Col xs={6} md={4}>
-              {/* <center> */}
               <Image
                 className="thumbnail"
                 src={this.props.data.img_url}
@@ -45,7 +42,6 @@ class Jumbotron extends Component {
               />
               <br></br>
               <h5 className="welcome"> Welcome, {this.props.data.name}</h5>
-              {/* </center> */}
             </Col>
             <Col xs={6} md={4}>
               <PieChart
