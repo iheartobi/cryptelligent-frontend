@@ -6,8 +6,8 @@ import { Container, Spinner } from 'react-bootstrap';
 import CoinList from './CoinList';
 import Jumbotron from './Jumbotron';
 
-const TRANS_API = 'http://localhost:3000/transactions/';
-const USER_API = 'http://localhost:3000/users/';
+const TRANS_API = 'https://whispering-hamlet-76141.herokuapp.com/transactions/';
+const USER_API = 'https://whispering-hamlet-76141.herokuapp.com/users/';
 
 class Market extends Component {
   constructor() {

@@ -6,8 +6,8 @@ import Jumbotron from '../components/Jumbotron';
 import { getUserInfo } from '../services/backend';
 import UserTable from '../components/UserTable';
 
-const TRANS_API = 'http://localhost:3000/transactions/';
-const USER_API = 'http://localhost:3000/users/';
+const TRANS_API = 'https://whispering-hamlet-76141.herokuapp.com/transactions/';
+const USER_API = 'https://whispering-hamlet-76141.herokuapp.com/users/';
 class Profile extends Component {
   state = {
     user: {},
