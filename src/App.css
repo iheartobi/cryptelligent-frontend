@@ -1,10 +1,9 @@
 .App {
   text-align: center;
-  
 }
 body {
   background-color: white;
-} 
+}
 
 .App-logo {
   height: 40vmin;
@@ -25,8 +24,7 @@ body {
   color: #09d3ac;
 }
 
-.signUp-form{
-  
+.signUp-form {
   width: 30%;
   /* padding: 70px; */
   vertical-align: middle;
@@ -37,11 +35,9 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
-.login-form{
-  
+.login-form {
   width: 30%;
   /* padding: 70px; */
   vertical-align: middle;
@@ -52,14 +48,13 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
-.sign-up-link{
+.sign-up-link {
   color: hotpink;
 }
 
-.login-link{
+.login-link {
   color: hotpink;
 }
 
@@ -68,7 +63,8 @@ body {
   /* grid-template-rows: 100px 300px; */
 }
 
-.h5, h5 {
+.h5,
+h5 {
   display: block;
   font-size: 2em;
   margin-top: 0.67em;
@@ -80,71 +76,98 @@ body {
 
 .news-feed {
   display: flex;
-  flex-direction:  row;
+  flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 3;
   justify-content: space-evenly;
+  align-content: space-between;
+  box-shadow: 0px 0px 0px 0px;
 }
- .user-table {
-  /* display: block; */
-  /* object-fit: fill; */
-  /* width: 100%; */
-  /* flex-direction:  row; */
-  /* flex-wrap: wrap; */
-  /* flex-grow: 5; */
-  /* justify-content: space-evenly; */
- } 
-
 
 .coin-feed {
+  margin-bottom: 12px;
   display: flex;
-  flex-direction:  row;
+  flex-direction: row;
   flex-wrap: wrap;
   flex-grow: 3;
   justify-content: space-evenly;
+  box-shadow: 0px 0px 0px 0px;
+  background-color: eggshell;
+}
+.card{
+  align-content: space-between 20px;
+  margin-top: 1rem;
+  margin-bottom: 1em;
+  box-shadow: 1px 2px 1px grey;
+}
+
+.sell-button{
+  background-color: gold;
 }
 
 .coin-loading {
   position: absolute; /* or absolute */
-  top: 25%;
-  left: 40%;
+  top: 50%;
+  left: 50%;
 }
 
 .site-name {
   font-family: 'Fira Sans', sans-serif;
-  position: absolute; /* or absolute */
-  top: 20%;
+  position: relative; /* or absolute */
+  top: 60%;
   left: 40%;
   color: whitesmoke;
-  font-size: 50em;
+}
+.site-header1 {
+  margin: 0;
+  font-size: 9em;
+  top: 10%;
+  vertical-align: middle;
+  float: center;
+  margin: 0;
+  position: fixed;
+  left: 22%;
+  text-shadow: 2px 2px grey;
+}
+.earning-amount {
+  font-size: 58px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow';
+}
+.expense-amount {
+  font-size: 50px;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow';
+}
 
-}
-.earning-amount{
-font-size: 80px;
-font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+.user-table {
+  box-shadow: 2px 2px 4px grey;
 }
 
-.CircularProgressbar {
- fill: transparent;
- height: 184px;
- stroke: white;
- font: white;
- 
-  
+.welcome {
+  font-size: 22px;
+  margin: 10px;
+  top: 10%;
+  padding: 3px;
+  position: relative;
+  left: -3%;
+  /* bottom: 70%; */
 }
-.CircularProgressbar-trail {
-  stroke: gray;
-  color: gray;
-  stroke-linecap: round;
-  
-  transform: rotate(0.25turn);
-  transform-origin: 'center center',
+.thumbnail {
+  padding: 0px;
+  position: relative;
+  left: 0%;
+  bottom: 10%;
+  box-shadow: 2px 2px 4px grey;
 }
-.CircularProgressbar-text {
-  fill: white;
-  color: white
+
+.jumbotron {
+  box-shadow: 2px 2px 4px grey;
+  height: relative;
+  text-shadow: 1px 0px grey;
+  position: relative;
+  flex: none;
 }
-.CircularProgressbar-path {
-  
-  color: white;
+
+.navbar {
+  box-shadow: 2px 2px 6px grey;
+  height: 5em;
 }

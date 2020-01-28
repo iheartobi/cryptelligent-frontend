@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { getCoins, getUserInfo } from "../services/backend";
-import NavBar from "./NavBar";
-import { Container } from "react-bootstrap";
-import coin_img from "../assets/quarter.gif";
-import CoinList from "./CoinList";
-import Jumbotron from "./Jumbotron";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { getCoins, getUserInfo } from '../services/backend';
+import NavBar from './NavBar';
+import { Container, Spinner } from 'react-bootstrap';
+import CoinList from './CoinList';
+import Jumbotron from './Jumbotron';
 
-const TRANS_API = "http://localhost:3000/transactions/";
-const USER_API = "http://localhost:3000/users/";
+const TRANS_API = 'http://localhost:3000/transactions/';
+const USER_API = 'http://localhost:3000/users/';
 
 class Market extends Component {
   constructor() {
@@ -18,20 +17,20 @@ class Market extends Component {
       coin: {},
       user: {},
       loading: true,
-      value: ""
+      value: ''
     };
   }
 
   componentDidMount() {
     getCoins().then(data => {
       this.setState({ coins: data, loading: false });
-      this.props.dispatch({ type: "GET_COINS", data });
+      this.props.dispatch({ type: 'GET_COINS', data });
     });
-    if (localStorage.hasOwnProperty("user")) {
-      let userId = JSON.parse(localStorage.getItem("user"));
+    if (localStorage.hasOwnProperty('user')) {
+      let userId = JSON.parse(localStorage.getItem('user'));
       getUserInfo(userId.user.id).then(data => {
         this.setState({ user: data });
-        this.props.dispatch({ type: "GET_USER", data });
+        this.props.dispatch({ type: 'GET_USER', data });
       });
     }
   }
@@ -57,11 +56,10 @@ class Market extends Component {
         }
       }));
 
-
       fetch(`${TRANS_API}`, {
-        method: "POST",
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(newTrans)
       })
@@ -76,9 +74,9 @@ class Market extends Component {
         .catch(err => alert(err));
 
       fetch(`${USER_API}${uId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(coinBank)
       })
@@ -96,14 +94,15 @@ class Market extends Component {
 
   render() {
     const { loading, user } = this.state;
+    console.log(user);
 
     if (loading) {
       return (
-        <div className="coin-loading">
-          <h4>Loading Most Recent Market Data</h4>
-          <br></br>
-          <img alt="coin" src={coin_img} />
-        </div>
+        <Spinner
+          className="coin-loading"
+          animation="border"
+          role="status"
+        ></Spinner>
       );
     } else {
       return (

@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import { Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import history from "../services/history";
-import bg from "../assets/Top-5-Benefits-of-Business-Loans-that-can-Help-to-Expand-Your-Business-DY605074.jpg";
+import bg from "../assets/Falling-Coins-Transparent-Background.png";
 
 const styles = {
   backgroundContainer: {
@@ -70,6 +70,11 @@ class SignUp extends Component {
 
   render() {
     const signUpForm = (
+      <>
+      <center>
+      <div className="site-name">
+         <center><h1 className="site-header1"> Cryptelligent. </h1></center> 
+        </div>
       <div className="signUp-form">
         <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formGroupNewName">
@@ -114,14 +119,13 @@ class SignUp extends Component {
           </h4>
         </div>
       </div>
+      </center>
+      </>
     );
 
     return (
       <div style={styles.backgroundContainer}>
-       <div className="site-name">
-         <center><h1> Cryptelligent </h1></center> 
-          <h4> Stack Your Coins Intelligently</h4>
-        </div>
+       
         <br></br>
         <br></br>
         <div>{signUpForm}</div>;

@@ -1,107 +1,74 @@
-import React, { Component } from "react";
-import { Row, Col, Image } from "react-bootstrap";
-import { CircularProgressbar } from "react-circular-progressbar";
-import "react-circular-progressbar/dist/styles.css";
-import ToolTip from "./ToolTip";
+import React, { Component } from 'react';
+import { Row, Col, Container, Image } from 'react-bootstrap';
+import { PieChart } from 'react-chartkick';
+import 'chart.js';
 
 class Jumbotron extends Component {
   render() {
-    const value = this.props.data.coinbank;
+    console.log(this.props);
+    const { coins } = this.props.data;
+    const arrayOfPrice =
+      coins &&
+      coins.map(coin => {
+        return coin.price;
+      });
+    const reducer = (acc, curr) => acc + curr;
+    const coinAmount = arrayOfPrice && arrayOfPrice.reduce(reducer, 0);
+
+    console.log(arrayOfPrice);
+
     const styles = {
       jumbo: {
         backgroundImage: `url(${this.props.data.bg_url})`,
-        backgroundRepeat: "no-repeat",
-        backgroundPosition: "center",
-        backgroundSize: "cover"
+        backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center',
+        backgroundSize: '100%',
+        color: 'white',
+        fontSize: '20px'
       }
     };
 
     return (
       <div className="jumbotron" style={styles.jumbo}>
-        <Row>
-          <Col xs={6} md={4}>
-            <center>
+        <Container>
+          <Row>
+            <Col xs={6} md={4}>
+              {/* <center> */}
               <Image
+                className="thumbnail"
                 src={this.props.data.img_url}
-                height="250px"
+                height="150px"
                 width="150px"
-                alt="profile-photo"
+                alt="user-profile"
+                thumbnail="true"
                 roundedCircle
-                thumbnail
               />
-            </center>
-            <center>
               <br></br>
-
-              <h5> Welcome, {this.props.data.name}</h5>
-            </center>
-          </Col>
-          <Col xs={6} md={4}>
-            <br></br>
-            <br></br>
-            <center>
-              {" "}
-              <strong>
-                {" "}
-                <h2>Earnings:</h2>{" "}
-              </strong>
-              <br></br>
-              <h1 className="earning-amount">
-                $ {this.props.data.coinbank}
-              </h1>{" "}
-            </center>
-          </Col>
-          <Col xs={6} md={3}>
-            <center>
-              <CircularProgressbar
-                value={value}
-                minValue={0}
-                maxValue={value / 10}
-                text={`${value / 10} %`}
-                styles={{
-                  root: {},
-                  // Customize the path, i.e. the "completed progress"
-                  path: {
-                    // Path color
-                    stroke: `rgba(255, 255, 255, ${value / 1000})`,
-                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                    strokeLinecap: "butt",
-                    // Customize transition animation
-                    transition: "stroke-dashoffset 0.5s ease 0s",
-                    // Rotate the path
-                    transform: "rotate(0.25turn)",
-                    transformOrigin: "center center"
-                  },
-                  // Customize the circle behind the path, i.e. the "total progress"
-                  trail: {
-                    // Trail color
-                    // '#d6d6d6'
-                    stroke: "red",
-                    // Whether to use rounded or flat corners on the ends - can use 'butt' or 'round'
-                    strokeLinecap: "round",
-                    // Rotate the trail
-                    transform: "rotate(0.25turn)",
-                    transformOrigin: "center center"
-                  },
-                  // Customize the text
-                  text: {
-                    // Text color
-                    fill: "white",
-                    // Text size
-                    fontSize: "18px"
-                  },
-                  // Customize background - only used when the `background` prop is true
-                  background: {
-                    fill: "#3e98c7"
-                  }
-                }}
+              <h5 className="welcome"> Welcome, {this.props.data.name}</h5>
+              {/* </center> */}
+            </Col>
+            <Col xs={6} md={4}>
+              <PieChart
+                donut={true}
+                colors={['red', 'gold']}
+                width="220px"
+                height="220px"
+                data={[
+                  ['Expense', coinAmount],
+                  ['Earnings', this.props.data.coinbank]
+                ]}
               />
-            </center>
-            <center>
-              <h5>{"Percentage"}</h5>
-            </center>
-          </Col>
-        </Row>
+            </Col>
+            <Col xs={6} md={4}>
+              <center>
+                <h5>Earnings:</h5>
+                <p className="earning-amount">${this.props.data.coinbank}</p>
+                <h5>Expenses:</h5>
+                <p className="expense-amount">${coinAmount}</p>
+              </center>
+            </Col>
+          </Row>
+        </Container>
       </div>
     );
   }

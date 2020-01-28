@@ -1,13 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import NavBar from "../components/NavBar";
-import { Container, Table } from "react-bootstrap";
-import Jumbotron from "../components/Jumbotron";
-import { getUserInfo } from "../services/backend";
-import UserTable from "../components/UserTable";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import NavBar from '../components/NavBar';
+import { Container, Table, Spinner } from 'react-bootstrap';
+import Jumbotron from '../components/Jumbotron';
+import { getUserInfo } from '../services/backend';
+import UserTable from '../components/UserTable';
 
-const TRANS_API = "http://localhost:3000/transactions/";
-const USER_API = "http://localhost:3000/users/";
+const TRANS_API = 'http://localhost:3000/transactions/';
+const USER_API = 'http://localhost:3000/users/';
 class Profile extends Component {
   state = {
     user: {},
@@ -15,17 +15,17 @@ class Profile extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.hasOwnProperty("user")) {
-      let userId = JSON.parse(localStorage.getItem("user"));
+    if (localStorage.hasOwnProperty('user')) {
+      let userId = JSON.parse(localStorage.getItem('user'));
       getUserInfo(userId.user.id).then(data => {
-        this.props.dispatch({ type: "GET_USER", data });
+        this.props.dispatch({ type: 'GET_USER', data });
         this.setState({ user: data, loading: false });
       });
     }
   }
 
   handleButtonClick = (e, props) => {
-    console.log(this.props)
+    console.log(this.props);
     if (this.state.user.coins.filter(coin => coin.id === props.id)) {
       const newCoinArr = this.props.user.coins.filter(coin => {
         return coin.id !== props.id;
@@ -39,7 +39,7 @@ class Profile extends Component {
       this.setState(state => ({
         user: {
           ...state.user,
-          coinbank: newCoinBank, 
+          coinbank: newCoinBank,
           coins: newCoinArr
         }
       }));
@@ -48,9 +48,9 @@ class Profile extends Component {
       console.log(this.state.user.coins);
 
       fetch(`${TRANS_API}`, {
-        method: "DELETE",
+        method: 'DELETE',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(removeTrans)
       })
@@ -65,9 +65,9 @@ class Profile extends Component {
         .catch(err => alert(err));
 
       fetch(`${USER_API}${uId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json"
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(coinBank)
       })
@@ -77,12 +77,12 @@ class Profile extends Component {
           this.setState(state => ({
             user: {
               ...state.user,
-              coinbank: data.coinbank, 
+              coinbank: data.coinbank,
               coins: data.coins
             }
           }));
         });
-        console.log(this.state.user)
+      console.log(this.state.user);
     }
   };
 
@@ -90,8 +90,14 @@ class Profile extends Component {
     const { loading, user } = this.state;
 
     const userTable = (
-      <Table  {...this.state.user.coins} className="user-table" striped bordered hover>
-        <UserTable 
+      <Table
+        {...this.state.user.coins}
+        className="user-table"
+        striped
+        bordered
+        hover
+      >
+        <UserTable
           handleButtonClick={this.handleButtonClick}
           data={user.coins}
         />
@@ -99,10 +105,11 @@ class Profile extends Component {
     );
     if (loading) {
       return (
-        <div className="coin-loading">
-          <h4>Loading Profile...</h4>
-          <br></br>
-        </div>
+        <Spinner
+          className="coin-loading"
+          animation="border"
+          role="status"
+        ></Spinner>
       );
     } else {
       return (

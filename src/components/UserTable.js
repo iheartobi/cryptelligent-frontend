@@ -1,5 +1,5 @@
-import React, { Component } from "react";
-import { Nav } from "react-bootstrap";
+import React, { Component } from 'react';
+import { Nav } from 'react-bootstrap';
 
 class UserTable extends Component {
   constructor(props) {
@@ -11,7 +11,7 @@ class UserTable extends Component {
   }
 
   getKeys = function() {
-    const allowed = ["id", "name", "price", "created_at"];
+    const allowed = ['id', 'name', 'price', 'created_at'];
 
     const filtered = Object.keys(this.props.data[0])
       .filter(key => allowed.includes(key))
@@ -42,12 +42,13 @@ class UserTable extends Component {
     return items.map((row, index) => {
       return (
         <tr id={index} key={`${row.updated_at}${index}`}>
-          <RenderRow id={index}  data={row} keys={keys} />
+          <RenderRow id={index} data={row} keys={keys} />
           <button
             className="sell-button"
             key={row.created_at}
             value={row}
-            onClick={(e) => this.props.handleButtonClick(e, row)}
+            color="yellow"
+            onClick={e => this.props.handleButtonClick(e, row)}
           >
             Sell Coin
           </button>
@@ -61,7 +62,7 @@ class UserTable extends Component {
       return (
         <center>
           <h3>{"You Don't Have any Transactions Yet!"}</h3>
-          <Nav.Link href="/market">{"GET COINS NOW"}</Nav.Link>
+          <Nav.Link href="/market">{'GET COINS NOW'}</Nav.Link>
         </center>
       );
     } else {
