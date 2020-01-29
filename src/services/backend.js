@@ -1,7 +1,6 @@
 const API = 'https://whispering-hamlet-76141.herokuapp.com/';
 
 
-
 export function getAuthToken(loginData) {
     return fetch(`${API}/login`, {
         method: 'POST',
